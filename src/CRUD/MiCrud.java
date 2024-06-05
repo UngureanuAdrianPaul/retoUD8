@@ -4,11 +4,11 @@ package CRUD;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class MiCrud {
-
     private String driver = "com.mysql.cj.jdbc.Driver";
     private String url = "jdbc:mysql://localhost:3306/";
     private String user = "root";
@@ -16,6 +16,7 @@ public class MiCrud {
 
     private Connection connection;
     private Statement statement;
+    public static final String SEPARADOR = " / ";
 
     // constructor
 
@@ -62,6 +63,8 @@ public class MiCrud {
         }
     }
 
+
+    //INSERTAR FILAS
     public boolean insertRow(String table, String[] nomCol, Object[] values) {
         initConnection();
         createStatement();
@@ -100,7 +103,113 @@ public class MiCrud {
                 closeConnection();
             }
         }
+    }
+
+     // LEER DE LA BASE DE DATOS
+     public String[] readBD(String[] select, String[] from, String where) {
+
+        initConnection();
+        createStatement();
+        if (select == null || from == null) {
+            return null;
+        } else {
+            for (String string : select) {
+                if (string == null) {
+                    return null;
+                }
+            }
+            for (String string : from) {
+                if (string == null) {
+                    return null;
+                }
+            }
+        }
+
+        String myQuery = "SELECT ";
+
+        for (int i = 0; i < select.length - 1; i++) {
+            myQuery = myQuery + select[i] + ", ";
+        }
+        myQuery = myQuery + select[select.length - 1] + " ";
+
+        myQuery = myQuery + "FROM ";
+        for (int i = 0; i < from.length - 1; i++) {
+            myQuery = myQuery + from[i] + ", ";
+        }
+
+        myQuery = myQuery + from[from.length - 1];
+
+        if (where != null) {
+            myQuery = myQuery + " WHERE " + where + " ;";
+        } else {
+            myQuery = myQuery + ";";
+        }
+
+        try {
+            ResultSet resultSet = this.statement.executeQuery(myQuery);
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int numRows = 0;
+            int numCol = metaData.getColumnCount();
+            while (resultSet.next()) {
+                numRows = resultSet.getRow();
+            }
+            String[] vista = new String[numRows];
+            resultSet.beforeFirst();
+            for (int i = 0; i < vista.length; i++) {
+                resultSet.next();
+                vista[i] = "";
+                for (int j = 1; j < numCol; j++) {
+                    vista[i] = vista[i] + resultSet.getString(j) + SEPARADOR;
+                }
+                vista[i] = vista[i] + resultSet.getString(numCol);
+
+            }
+            return vista;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        } finally {
+            if(connection != null) {
+                closeConnection();
+            }
+        }
 
     }
+
+    //DROP Y DELETE
+
+    public int deleteRows(String table, String condition) {
+        initConnection();
+        createStatement();
+        String query = "DELETE FROM " + table + " Where " + condition + ";";
+
+        try {
+            return (this.statement.executeUpdate(query));
+        } catch (SQLException e) {
+            return -1;
+        } finally {
+            if(connection != null) {
+                closeConnection();
+            }
+        }
+    }
+
+    public boolean dropTable(String table) { 
+        initConnection();
+        createStatement();
+
+        try {
+            this.statement.executeUpdate("DROP TABLE " + table + ";");
+            return true;
+        } catch (SQLException e) {
+            return false;
+        } finally {
+            if(connection != null) {
+                closeConnection();
+            }
+        }
+
+    }
+    
 
 }

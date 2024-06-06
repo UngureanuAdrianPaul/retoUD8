@@ -63,8 +63,7 @@ public class MiCrud {
         }
     }
 
-
-    //INSERTAR FILAS
+    // INSERTAR FILAS
     public boolean insertRow(String table, String[] nomCol, Object[] values) {
         initConnection();
         createStatement();
@@ -99,14 +98,14 @@ public class MiCrud {
             System.out.println(e.getMessage());
             return false;
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 closeConnection();
             }
         }
     }
 
-     // LEER DE LA BASE DE DATOS
-     public String[] readBD(String[] select, String[] from, String where) {
+    // LEER DE LA BASE DE DATOS
+    public String[] readBD(String[] select, String[] from, String where) {
 
         initConnection();
         createStatement();
@@ -169,14 +168,14 @@ public class MiCrud {
             System.out.println(e.getMessage());
             return null;
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 closeConnection();
             }
         }
 
     }
 
-    //DROP Y DELETE
+    // DROP Y DELETE
 
     public int deleteRows(String table, String condition) {
         initConnection();
@@ -188,13 +187,13 @@ public class MiCrud {
         } catch (SQLException e) {
             return -1;
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 closeConnection();
             }
         }
     }
 
-    public boolean dropTable(String table) { 
+    public boolean dropTable(String table) {
         initConnection();
         createStatement();
 
@@ -204,12 +203,56 @@ public class MiCrud {
         } catch (SQLException e) {
             return false;
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 closeConnection();
             }
         }
 
     }
-    
+
+    public int updateTable(String tabla, String[][] colValor, String condicion) {
+
+        if (tabla == null || colValor == null) {
+            return -1;
+        } else {
+            for (String[] string : colValor) {
+                if (string[0] == null || string[1] == null) {
+                    return -1;
+                }
+            }
+        }
+
+        initConnection();
+        createStatement();
+
+        String myQuery = "UPDATE " + tabla + " SET ";
+
+        for (int i = 0; i < colValor.length - 1; i++) {
+
+            myQuery = myQuery + colValor[i][0] + " = " + colValor[i][1] + " , ";
+        }
+
+        myQuery = myQuery + colValor[colValor.length - 1][0] + " = " + colValor[colValor.length - 1][1];
+
+        if (condicion != null) {
+            myQuery = myQuery + " WHERE " + condicion;
+
+        }
+        myQuery = myQuery + ";";
+
+        System.out.println(myQuery);
+
+        try {
+            return (this.statement.executeUpdate(myQuery));
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return -1;
+        } finally {
+            if (connection != null) {
+                closeConnection();
+            }
+        }
+
+    }
 
 }

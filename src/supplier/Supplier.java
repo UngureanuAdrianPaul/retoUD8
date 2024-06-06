@@ -43,22 +43,38 @@ public class Supplier {
 
     }
 
-    // LEER
+    // LEER CINE
 
-    public Cine[] readCine() {
+    public Cine[] readCine(String where) {
 
-        String[] lectura = miCrud.readBD(new String[] { "*" },
-                new String[] { "cines" }, null);
+        if (where != null) {
+            String[] lectura = miCrud.readBD(new String[] { "*" },
+                    new String[] { "cines" }, where);
 
-        Cine[] cines = new Cine[lectura.length];
+            Cine[] cines = new Cine[lectura.length];
 
-        for (int i = 0; i < cines.length; i++) {
-            cines[i] = new Cine();
-            transformaCine(lectura[i], cines[i]);
+            for (int i = 0; i < cines.length; i++) {
+                cines[i] = new Cine();
+                transformaCine(lectura[i], cines[i]);
+            }
+
+            return cines;
+
+        } else {
+            String[] lectura = miCrud.readBD(new String[] { "*" },
+                    new String[] { "cines" }, null);
+
+            Cine[] cines = new Cine[lectura.length];
+
+            for (int i = 0; i < cines.length; i++) {
+                cines[i] = new Cine();
+                transformaCine(lectura[i], cines[i]);
+            }
+
+            return cines;
 
         }
 
-        return cines;
     }
 
     public void transformaCine(String cadena, Cine cine) {
@@ -74,67 +90,175 @@ public class Supplier {
         cine.setDireccion(dir);
         cine.setIdentificadorCine(id);
         cine.setNombreCine(nombre);
+    }
 
+    // LEER SALA
+
+    public Sala[] readSala(String where) {
+
+        if (where != null) {
+            String[] lectura = miCrud.readBD(new String[] { "*" },
+                    new String[] { "salas" }, where);
+           
+            Sala[] salas = new Sala[lectura.length];
+
+            for (int i = 0; i < salas.length; i++) {
+                salas[i] = new Sala();
+                transformaSala(lectura[i], salas[i]);
+            }
+
+            return salas;
+        } else {
+            String[] lectura = miCrud.readBD(new String[] { "*" },
+                    new String[] { "salas" }, null);
+          
+            Sala[] salas = new Sala[lectura.length];
+
+            for (int i = 0; i < salas.length; i++) {
+                salas[i] = new Sala();
+                transformaSala(lectura[i], salas[i]);
+            }
+
+            return salas;
+
+        }
+
+    }
+
+    public void transformaSala(String cadena, Sala sala) {
+
+        int primerSeparador = cadena.indexOf(MiCrud.SEPARADOR);
+       
+        int segundoSeparador = primerSeparador + MiCrud.SEPARADOR.length();
         
+
+        int id = Integer.parseInt(cadena.substring(0, cadena.indexOf(MiCrud.SEPARADOR)));
+        int capacidad = Integer.parseInt(cadena.substring(primerSeparador + MiCrud.SEPARADOR.length(),
+                cadena.indexOf(MiCrud.SEPARADOR, segundoSeparador)));
+        double metros = Double.parseDouble(
+                cadena.substring(cadena.indexOf(MiCrud.SEPARADOR, segundoSeparador) + MiCrud.SEPARADOR.length()));
+
+        sala.setIdentificadorSala(id);
+        sala.setCapacidad(capacidad);
+        sala.setMetrosCuadrados(metros);
     }
 
-    public String[] read(Sala sala) {
+    // LEER PELICULA
 
-        return miCrud.readBD(new String[] { "*" },
-                new String[] { "salas" }, null);
+    public Pelicula[] readPelicula(String where) {
+
+        if (where != null) {
+            String[] lectura = miCrud.readBD(new String[] { "*" },
+                    new String[] { "peliculas" }, where);
+
+            for (int i = 0; i < lectura.length; i++) {
+                System.out.println(lectura[i]);
+            }
+            Pelicula[] peli = new Pelicula[lectura.length];
+
+            for (int i = 0; i < peli.length; i++) {
+                peli[i] = new Pelicula();
+                transformaPelicula(lectura[i], peli[i]);
+            }
+
+            return peli;
+        } else {
+            String[] lectura = miCrud.readBD(new String[] { "*" },
+                    new String[] { "peliculas" }, null);
+
+            for (int i = 0; i < lectura.length; i++) {
+                System.out.println(lectura[i]);
+            }
+            Pelicula[] peli = new Pelicula[lectura.length];
+
+            for (int i = 0; i < peli.length; i++) {
+                peli[i] = new Pelicula();
+                transformaPelicula(lectura[i], peli[i]);
+            }
+
+            return peli;
+        }
+
     }
 
-    public String[] read(Pelicula peli) {
+    public void transformaPelicula(String cadena, Pelicula pelicula) {
 
-        return miCrud.readBD(new String[] { "*" },
-                new String[] { "peliculas" }, null);
+        int primerSeparador = cadena.indexOf(MiCrud.SEPARADOR);
+        System.out.println(primerSeparador);
+        int segundoSeparador = cadena.indexOf(MiCrud.SEPARADOR, primerSeparador + 2);
+        System.out.println(segundoSeparador);
+        int tercerSeparador = cadena.indexOf(MiCrud.SEPARADOR, segundoSeparador + 2);
+        System.out.println(tercerSeparador);
+        int cuartoSeparador = cadena.indexOf(MiCrud.SEPARADOR, tercerSeparador + 2);
+        System.out.println(cuartoSeparador);
+        int quintoSeparador = cadena.indexOf(MiCrud.SEPARADOR, cuartoSeparador + 2);
+        System.out.println(quintoSeparador);
+        int sextoSeparador = cadena.indexOf(MiCrud.SEPARADOR, quintoSeparador + 2);
+        System.out.println(sextoSeparador);
+
+        int id = Integer.parseInt(cadena.substring(0, cadena.indexOf(MiCrud.SEPARADOR)));
+
+        String titulo = cadena.substring(primerSeparador + MiCrud.SEPARADOR.length(),
+                cadena.indexOf(MiCrud.SEPARADOR, segundoSeparador));
+        int duracion = Integer.parseInt(cadena.substring(segundoSeparador + MiCrud.SEPARADOR.length(),
+                cadena.indexOf(MiCrud.SEPARADOR, tercerSeparador)));
+        String genero = cadena.substring(tercerSeparador + MiCrud.SEPARADOR.length(),
+                cadena.indexOf(MiCrud.SEPARADOR, cuartoSeparador));
+        String director = cadena.substring(cuartoSeparador + MiCrud.SEPARADOR.length(),
+                cadena.indexOf(MiCrud.SEPARADOR, quintoSeparador));
+        String clasEdad = cadena.substring(quintoSeparador + MiCrud.SEPARADOR.length(),
+                cadena.indexOf(MiCrud.SEPARADOR, sextoSeparador));
+
+        double precio = Double.parseDouble(
+                cadena.substring(cadena.indexOf(MiCrud.SEPARADOR, sextoSeparador) + MiCrud.SEPARADOR.length()));
+
+        pelicula.setIdentificadorPelicula(id);
+        pelicula.setTitulo(titulo);
+        pelicula.setDuracionMinutos(duracion);
+        pelicula.setGenero(genero);
+        pelicula.setDirector(director);
+        pelicula.setClasificacionPorEdad(clasEdad);
+        pelicula.setPrecio(precio);
     }
 
-    // BORRAR FILA
-    public int delete(Cine cine) {
-        Scanner teclado = new Scanner(System.in);
-        System.out.println("Inserta la condición de borrado de filas: ");
-        String condicion = teclado.nextLine();
-        teclado.close();
+    // BORRAR FILAS
 
-        return miCrud.deleteRows("cines", condicion);
+    public int deleteCine(String columna, String valor) {
+
+        return miCrud.deleteRows("cines", (columna + " = " + valor));
 
     }
 
-    public int delete(Sala sala) {
-        Scanner teclado = new Scanner(System.in);
-        System.out.println("Inserta la condición de borrado de filas: ");
-        String condicion = teclado.nextLine();
-        teclado.close();
+    public int deleteSala(String columna, String valor) {
 
-        return miCrud.deleteRows("salas", condicion);
+        return miCrud.deleteRows("sala", (columna + " = " + valor));
 
     }
 
-    public int delete(Pelicula peli) {
-        Scanner teclado = new Scanner(System.in);
-        System.out.println("Inserta la condición de borrado de filas: ");
-        String condicion = teclado.nextLine();
-        teclado.close();
+    public int deletePelicula(String columna, String valor) {
 
-        return miCrud.deleteRows("peliculas", condicion);
+        return miCrud.deleteRows("peliculas", (columna + " = " + valor));
+
     }
 
-    // ELIMINAR TABLA
+    // MODIFICAR
 
-    public boolean drop(Cine cine) {
+    public int modificaCine(String[][] nuevosValores, String columna, String valor) {
 
-        return miCrud.dropTable("cines");
+        return miCrud.updateTable("cines", nuevosValores, columna + " = " + valor);
+
     }
 
-    public boolean drop(Sala sala) {
+    public int modificaSala(String[][] nuevosValores, String columna, String valor) {
 
-        return miCrud.dropTable("salas");
+        return miCrud.updateTable("salas", nuevosValores, columna + " = " + valor);
+
     }
 
-    public boolean drop(Pelicula peli) {
+    public int modificaPelicula(String[][] nuevosValores, String columna, String valor) {
 
-        return miCrud.dropTable("peliculas");
+        return miCrud.updateTable("peliculas", nuevosValores, columna + " = " + valor);
+
     }
 
 }

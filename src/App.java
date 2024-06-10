@@ -142,13 +142,13 @@ public class App {
                                     if (entradaCine == 'S') {
                                         System.out.println("Introduzca dicha condición: ");
                                         String condicion = teclado.nextLine();
-                                        Cine[] cine1 = suministrador.readCine(condicion);
+                                        Cine[] cine = suministrador.readCine(condicion);
 
                                         System.out.println();
                                         System.out.println("El resultado de su consulta es:");
                                         System.out.println();
 
-                                        for (Cine cines : cine1) {
+                                        for (Cine cines : cine) {
                                             System.out.println(cines);
                                         }
 
@@ -165,6 +165,35 @@ public class App {
 
                                     } else {
                                         System.out.println("Introduzca correctamente la letra.");
+                                        entradaCine = teclado.next().toUpperCase().charAt(0);
+                                        teclado.nextLine();
+
+                                        if (entradaCine == 'S') {
+                                            System.out.println("Introduzca dicha condición: ");
+                                            String condicion = teclado.nextLine();
+                                            Cine[] cine = suministrador.readCine(condicion);
+
+                                            System.out.println();
+                                            System.out.println("El resultado de su consulta es:");
+                                            System.out.println();
+
+                                            for (Cine cines : cine) {
+                                                System.out.println(cines);
+                                            }
+
+                                        } else if (entradaCine == 'N') {
+                                            Cine[] cine = suministrador.readCine(null);
+
+                                            System.out.println();
+                                            System.out.println("El resultado de su consulta es:");
+                                            System.out.println();
+
+                                            for (Cine cines : cine) {
+                                                System.out.println(cines);
+                                            }
+
+                                        }
+                                        // ERROR AQUI, NO SE COMO SE SALE DEL BUCLE INFINITO
                                     }
                                 } while (entradaCine != 'S' && entradaCine != 'N');
 
@@ -203,34 +232,106 @@ public class App {
 
                                     } else {
                                         System.out.println("Introduzca correctamente la letra.");
-                                        
+                                        entradaSala = teclado.next().toUpperCase().charAt(0);
+                                        teclado.nextLine();
+
+                                        if (entradaSala == 'S') {
+                                            System.out.println("Introduzca dicha condición: ");
+                                            String condicion = teclado.nextLine();
+                                            Sala[] sala = suministrador.readSala(condicion);
+
+                                            System.out.println();
+                                            System.out.println("El resultado de su consulta es:");
+                                            System.out.println();
+
+                                            for (Sala salas : sala) {
+                                                System.out.println(salas);
+                                            }
+
+                                        } else if (entradaSala == 'N') {
+                                            Sala[] sala = suministrador.readSala(null);
+
+                                            System.out.println();
+                                            System.out.println("El resultado de su consulta es:");
+                                            System.out.println();
+
+                                            for (Sala salas : sala) {
+                                                System.out.println(salas);
+                                            }
+
+                                        }
+                                        // ERROR AQUI, NO SE COMO SE SALE DEL BUCLE INFINITO
+
                                     }
                                 } while (entradaSala != 'S' && entradaSala != 'N');
                                 break;
                             case 3:
-                                // inserto peli
-                                Pelicula peli = new Pelicula();
-                                System.out.println();
-                                System.out.println("Inserte los valores correspondientes. ");
-                                System.out.println();
-                                System.out.println("Título:");
-                                peli.setTitulo(teclado.nextLine());
-                                System.out.println("Duración");
-                                peli.setDuracionMinutos(teclado.nextInt());
-                                teclado.nextLine();
-                                System.out.println("Género:");
-                                peli.setGenero(teclado.nextLine());
-                                System.out.println("Director:");
-                                peli.setDirector(teclado.nextLine());
-                                System.out.println("Clasificación edad:");
-                                peli.setClasificacionPorEdad(teclado.nextLine());
-                                teclado.nextLine();
-                                System.out.println("Precio:");
-                                peli.setPrecio(teclado.nextDouble());
-                                teclado.nextLine();
+                                // leo peli
+                              
+                               System.out.println("¿Desea insertar una condición de filtrado de filas?");
+                               System.out.println("Pulse S para 'Sí' o N para 'No'");
+                               char entradaPeli = teclado.next().toUpperCase().charAt(0);
+                               teclado.nextLine();
+                               do {
 
-                                System.out.println(
-                                        "¿La inserción se ha ejecutado correctamente?: " + suministrador.insert(peli));
+                                   if (entradaPeli == 'S') {
+                                       System.out.println("Introduzca dicha condición: ");
+                                       String condicion = teclado.nextLine();
+                                       Pelicula[] peli = suministrador.readPelicula(condicion);
+
+                                       System.out.println();
+                                       System.out.println("El resultado de su consulta es:");
+                                       System.out.println();
+
+                                       for (Pelicula pelis : peli) {
+                                           System.out.println(pelis);
+                                       }
+
+                                   } else if (entradaPeli == 'N') {
+                                       Pelicula[] peli = suministrador.readPelicula(null);
+
+                                       System.out.println();
+                                       System.out.println("El resultado de su consulta es:");
+                                       System.out.println();
+
+                                       for (Pelicula pelis : peli) {
+                                           System.out.println(pelis);
+                                       }
+
+                                   } else {
+                                       System.out.println("Introduzca correctamente la letra.");
+                                       entradaPeli = teclado.next().toUpperCase().charAt(0);
+                                       teclado.nextLine();
+
+                                       if (entradaPeli == 'S') {
+                                           System.out.println("Introduzca dicha condición: ");
+                                           String condicion = teclado.nextLine();
+                                           Pelicula[] peli = suministrador.readPelicula(condicion);
+
+                                           System.out.println();
+                                           System.out.println("El resultado de su consulta es:");
+                                           System.out.println();
+
+                                           for (Pelicula pelis : peli) {
+                                               System.out.println(pelis);
+                                           }
+
+                                       } else if (entradaPeli == 'N') {
+                                           Pelicula[] peli = suministrador.readPelicula(null);
+
+                                           System.out.println();
+                                           System.out.println("El resultado de su consulta es:");
+                                           System.out.println();
+
+                                           for (Pelicula pelis : peli) {
+                                               System.out.println(pelis);
+                                           }
+
+                                       }
+                                       // ERROR AQUI, NO SE COMO SE SALE DEL BUCLE INFINITO
+                                   }
+                               } while (entradaPeli != 'S' && entradaPeli != 'N');
+
 
                                 break;
 

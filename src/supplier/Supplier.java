@@ -99,7 +99,7 @@ public class Supplier {
         if (where != null) {
             String[] lectura = miCrud.readBD(new String[] { "*" },
                     new String[] { "salas" }, where);
-           
+
             Sala[] salas = new Sala[lectura.length];
 
             for (int i = 0; i < salas.length; i++) {
@@ -111,7 +111,7 @@ public class Supplier {
         } else {
             String[] lectura = miCrud.readBD(new String[] { "*" },
                     new String[] { "salas" }, null);
-          
+
             Sala[] salas = new Sala[lectura.length];
 
             for (int i = 0; i < salas.length; i++) {
@@ -128,9 +128,8 @@ public class Supplier {
     public void transformaSala(String cadena, Sala sala) {
 
         int primerSeparador = cadena.indexOf(MiCrud.SEPARADOR);
-       
+
         int segundoSeparador = primerSeparador + MiCrud.SEPARADOR.length();
-        
 
         int id = Integer.parseInt(cadena.substring(0, cadena.indexOf(MiCrud.SEPARADOR)));
         int capacidad = Integer.parseInt(cadena.substring(primerSeparador + MiCrud.SEPARADOR.length(),
@@ -151,9 +150,6 @@ public class Supplier {
             String[] lectura = miCrud.readBD(new String[] { "*" },
                     new String[] { "peliculas" }, where);
 
-            for (int i = 0; i < lectura.length; i++) {
-                System.out.println(lectura[i]);
-            }
             Pelicula[] peli = new Pelicula[lectura.length];
 
             for (int i = 0; i < peli.length; i++) {
@@ -166,9 +162,6 @@ public class Supplier {
             String[] lectura = miCrud.readBD(new String[] { "*" },
                     new String[] { "peliculas" }, null);
 
-            for (int i = 0; i < lectura.length; i++) {
-                System.out.println(lectura[i]);
-            }
             Pelicula[] peli = new Pelicula[lectura.length];
 
             for (int i = 0; i < peli.length; i++) {
@@ -184,17 +177,16 @@ public class Supplier {
     public void transformaPelicula(String cadena, Pelicula pelicula) {
 
         int primerSeparador = cadena.indexOf(MiCrud.SEPARADOR);
-        System.out.println(primerSeparador);
+
         int segundoSeparador = cadena.indexOf(MiCrud.SEPARADOR, primerSeparador + 2);
-        System.out.println(segundoSeparador);
+
         int tercerSeparador = cadena.indexOf(MiCrud.SEPARADOR, segundoSeparador + 2);
-        System.out.println(tercerSeparador);
+
         int cuartoSeparador = cadena.indexOf(MiCrud.SEPARADOR, tercerSeparador + 2);
-        System.out.println(cuartoSeparador);
+
         int quintoSeparador = cadena.indexOf(MiCrud.SEPARADOR, cuartoSeparador + 2);
-        System.out.println(quintoSeparador);
+
         int sextoSeparador = cadena.indexOf(MiCrud.SEPARADOR, quintoSeparador + 2);
-        System.out.println(sextoSeparador);
 
         int id = Integer.parseInt(cadena.substring(0, cadena.indexOf(MiCrud.SEPARADOR)));
 

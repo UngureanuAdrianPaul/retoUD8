@@ -180,7 +180,13 @@ public class MiCrud {
     public int deleteRows(String table, String condition) {
         initConnection();
         createStatement();
-        String query = "DELETE FROM " + table + " Where " + condition + ";";
+        String query = "DELETE FROM " + table;
+
+        if (condition != null) {
+            query = query + " WHERE " + condition + " ;";
+        } else {
+            query = query + ";";
+        }
 
         try {
             return (this.statement.executeUpdate(query));

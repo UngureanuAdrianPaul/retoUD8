@@ -1,8 +1,6 @@
 
 import java.util.Scanner;
 
-import javax.swing.tree.TreeCellEditor;
-
 import supplier.Supplier;
 import tablas.Cine;
 import tablas.Pelicula;
@@ -193,7 +191,7 @@ public class App {
                                             }
 
                                         }
-                                        // ERROR AQUI, NO SE COMO SE SALE DEL BUCLE INFINITO
+
                                     }
                                 } while (entradaCine != 'S' && entradaCine != 'N');
 
@@ -267,71 +265,70 @@ public class App {
                                 break;
                             case 3:
                                 // leo peli
-                              
-                               System.out.println("¿Desea insertar una condición de filtrado de filas?");
-                               System.out.println("Pulse S para 'Sí' o N para 'No'");
-                               char entradaPeli = teclado.next().toUpperCase().charAt(0);
-                               teclado.nextLine();
-                               do {
 
-                                   if (entradaPeli == 'S') {
-                                       System.out.println("Introduzca dicha condición: ");
-                                       String condicion = teclado.nextLine();
-                                       Pelicula[] peli = suministrador.readPelicula(condicion);
+                                System.out.println("¿Desea insertar una condición de filtrado de filas?");
+                                System.out.println("Pulse S para 'Sí' o N para 'No'");
+                                char entradaPeli = teclado.next().toUpperCase().charAt(0);
+                                teclado.nextLine();
+                                do {
 
-                                       System.out.println();
-                                       System.out.println("El resultado de su consulta es:");
-                                       System.out.println();
+                                    if (entradaPeli == 'S') {
+                                        System.out.println("Introduzca dicha condición: ");
+                                        String condicion = teclado.nextLine();
+                                        Pelicula[] peli = suministrador.readPelicula(condicion);
 
-                                       for (Pelicula pelis : peli) {
-                                           System.out.println(pelis);
-                                       }
+                                        System.out.println();
+                                        System.out.println("El resultado de su consulta es:");
+                                        System.out.println();
 
-                                   } else if (entradaPeli == 'N') {
-                                       Pelicula[] peli = suministrador.readPelicula(null);
+                                        for (Pelicula pelis : peli) {
+                                            System.out.println(pelis);
+                                        }
 
-                                       System.out.println();
-                                       System.out.println("El resultado de su consulta es:");
-                                       System.out.println();
+                                    } else if (entradaPeli == 'N') {
+                                        Pelicula[] peli = suministrador.readPelicula(null);
 
-                                       for (Pelicula pelis : peli) {
-                                           System.out.println(pelis);
-                                       }
+                                        System.out.println();
+                                        System.out.println("El resultado de su consulta es:");
+                                        System.out.println();
 
-                                   } else {
-                                       System.out.println("Introduzca correctamente la letra.");
-                                       entradaPeli = teclado.next().toUpperCase().charAt(0);
-                                       teclado.nextLine();
+                                        for (Pelicula pelis : peli) {
+                                            System.out.println(pelis);
+                                        }
 
-                                       if (entradaPeli == 'S') {
-                                           System.out.println("Introduzca dicha condición: ");
-                                           String condicion = teclado.nextLine();
-                                           Pelicula[] peli = suministrador.readPelicula(condicion);
+                                    } else {
+                                        System.out.println("Introduzca correctamente la letra.");
+                                        entradaPeli = teclado.next().toUpperCase().charAt(0);
+                                        teclado.nextLine();
 
-                                           System.out.println();
-                                           System.out.println("El resultado de su consulta es:");
-                                           System.out.println();
+                                        if (entradaPeli == 'S') {
+                                            System.out.println("Introduzca dicha condición: ");
+                                            String condicion = teclado.nextLine();
+                                            Pelicula[] peli = suministrador.readPelicula(condicion);
 
-                                           for (Pelicula pelis : peli) {
-                                               System.out.println(pelis);
-                                           }
+                                            System.out.println();
+                                            System.out.println("El resultado de su consulta es:");
+                                            System.out.println();
 
-                                       } else if (entradaPeli == 'N') {
-                                           Pelicula[] peli = suministrador.readPelicula(null);
+                                            for (Pelicula pelis : peli) {
+                                                System.out.println(pelis);
+                                            }
 
-                                           System.out.println();
-                                           System.out.println("El resultado de su consulta es:");
-                                           System.out.println();
+                                        } else if (entradaPeli == 'N') {
+                                            Pelicula[] peli = suministrador.readPelicula(null);
 
-                                           for (Pelicula pelis : peli) {
-                                               System.out.println(pelis);
-                                           }
+                                            System.out.println();
+                                            System.out.println("El resultado de su consulta es:");
+                                            System.out.println();
 
-                                       }
-                                       // ERROR AQUI, NO SE COMO SE SALE DEL BUCLE INFINITO
-                                   }
-                               } while (entradaPeli != 'S' && entradaPeli != 'N');
+                                            for (Pelicula pelis : peli) {
+                                                System.out.println(pelis);
+                                            }
 
+                                        }
+                                        // ERROR AQUI, NO SE COMO SE SALE DEL BUCLE INFINITO
+                                    }
+                                } while (entradaPeli != 'S' && entradaPeli != 'N');
 
                                 break;
 
@@ -345,11 +342,200 @@ public class App {
                     break;
 
                 case 3:
+                    // BORRAR
+
+                    System.out.println("Inserte la tabla a la que quiere aplicar el borrado:");
+                    System.out.println();
+                    System.out.println("1.Cines       2.Salas       3.Películas ");
+
+                    do {
+                        numTabla = teclado.nextInt();
+                        teclado.nextLine();
+                        System.out.println();
+
+                        switch (numTabla) {
+                            case 1: // borro de cine
+                                System.out.println("¿Desde borrar todas la filas de la tabla Cine?");
+                                System.out.println("Pulse S para 'Sí' o N para 'No'");
+                                char entradaCine = teclado.next().toUpperCase().charAt(0);
+                                teclado.nextLine();
+
+                                do {
+                                    if (entradaCine == 'S') {
+                                        System.out.println("Se han borrado un total de "
+                                                + suministrador.deleteCine(null, null, null) + " filas");
+
+                                    } else if (entradaCine == 'N') {
+
+                                        System.out.println("Introduzca dicha condición: ");
+                                        System.out.println("Columna: ");
+                                        String columna = teclado.nextLine();
+                                        System.out.println("Valor: ");
+                                        String valor = teclado.nextLine();
+                                        System.out.println("Se han borrado un total de "
+                                                + suministrador.deleteCine(columna, valor, "1") + " fila");
+
+                                    } else {
+                                        System.out.println("Introduzca correctamente la letra.");
+                                        entradaCine = teclado.next().toUpperCase().charAt(0);
+                                        teclado.nextLine();
+
+                                        if (entradaCine == 'S') {
+
+                                            System.out.println("Se han borrado un total de "
+                                                    + suministrador.deleteCine(null, null, null) + " filas");
+
+                                        } else if (entradaCine == 'N') {
+
+                                            System.out.println("Introduzca dicha condición: ");
+                                            System.out.println("Columna");
+                                            String columna = teclado.nextLine();
+                                            System.out.println("Valor");
+                                            String valor = teclado.nextLine();
+
+                                            System.out.println("Se han borrado un total de "
+                                                    + suministrador.deleteCine(columna, valor, "1") + " fila");
+                                        }
+
+                                    }
+                                } while (entradaCine != 'S' && entradaCine != 'N');
+
+                                break;
+                            case 2: // borro de sala
+                                System.out.println("¿Desde borrar todas la filas de la tabla Sala?");
+                                System.out.println("Pulse S para 'Sí' o N para 'No'");
+                                char entradaSala = teclado.next().toUpperCase().charAt(0);
+                                teclado.nextLine();
+
+                                do {
+                                    if (entradaSala == 'S') {
+                                        System.out.println("Se han borrado un total de "
+                                                + suministrador.deleteSala(null, null, null) + " filas");
+
+                                    } else if (entradaSala == 'N') {
+
+                                        System.out.println("Introduzca dicha condición: ");
+                                        System.out.println("Columna: ");
+                                        String columna = teclado.nextLine();
+                                        System.out.println("Valor: ");
+                                        String valor = teclado.nextLine();
+                                        System.out.println("Se han borrado un total de "
+                                                + suministrador.deleteSala(columna, valor, "1") + " fila");
+
+                                    } else {
+                                        System.out.println("Introduzca correctamente la letra.");
+                                        entradaSala = teclado.next().toUpperCase().charAt(0);
+                                        teclado.nextLine();
+
+                                        if (entradaSala == 'S') {
+
+                                            System.out.println("Se han borrado un total de "
+                                                    + suministrador.deleteSala(null, null, null) + " filas");
+
+                                        } else if (entradaSala == 'N') {
+
+                                            System.out.println("Introduzca dicha condición: ");
+                                            System.out.println("Columna");
+                                            String columna = teclado.nextLine();
+                                            System.out.println("Valor");
+                                            String valor = teclado.nextLine();
+
+                                            System.out.println("Se han borrado un total de "
+                                                    + suministrador.deleteSala(columna, valor, "1") + " fila");
+                                        }
+
+                                    }
+                                } while (entradaSala != 'S' && entradaSala != 'N');
+                                break;
+
+                            case 3: // borro de pelicula
+
+                                System.out.println("¿Desde borrar todas la filas de la tabla Pelicula?");
+                                System.out.println("Pulse S para 'Sí' o N para 'No'");
+                                char entradaPelicula = teclado.next().toUpperCase().charAt(0);
+                                teclado.nextLine();
+
+                                do {
+                                    if (entradaPelicula == 'S') {
+                                        System.out.println("Se han borrado un total de "
+                                                + suministrador.deletePelicula(null, null, null) + " filas");
+
+                                    } else if (entradaPelicula == 'N') {
+
+                                        System.out.println("Introduzca dicha condición: ");
+                                        System.out.println("Columna: ");
+                                        String columna = teclado.nextLine();
+                                        System.out.println("Valor: ");
+                                        String valor = teclado.nextLine();
+                                        System.out.println("Se han borrado un total de "
+                                                + suministrador.deletePelicula(columna, valor, "1") + " fila");
+
+                                    } else {
+                                        System.out.println("Introduzca correctamente la letra.");
+                                        entradaPelicula = teclado.next().toUpperCase().charAt(0);
+                                        teclado.nextLine();
+
+                                        if (entradaPelicula == 'S') {
+
+                                            System.out.println("Se han borrado un total de "
+                                                    + suministrador.deletePelicula(null, null, null) + " filas");
+
+                                        } else if (entradaPelicula == 'N') {
+
+                                            System.out.println("Introduzca dicha condición: ");
+                                            System.out.println("Columna");
+                                            String columna = teclado.nextLine();
+                                            System.out.println("Valor");
+                                            String valor = teclado.nextLine();
+
+                                            System.out.println("Se han borrado un total de "
+                                                    + suministrador.deletePelicula(columna, valor, "1") + " fila");
+                                        }
+
+                                    }
+                                } while (entradaPelicula != 'S' && entradaPelicula != 'N');
+                                break;
+
+                            default:
+                                System.out.println("Inserte un número de tabla correcto");
+                                break;
+                        }
+
+                    } while (numTabla < 1 || numTabla > 3);
 
                     break;
 
                 case 4:
 
+                    // MODIFICAR
+
+                    System.out.println("Inserte la tabla a la que quiere aplicar la modificacion:");
+                    System.out.println();
+                    System.out.println("1.Cines       2.Salas       3.Películas ");
+
+                    do {
+                        numTabla = teclado.nextInt();
+                        teclado.nextLine();
+                        System.out.println();
+
+                        switch (numTabla) {
+                            case 1: // modifico cine
+
+                                break;
+                            case 2: // modifico sala
+
+                                break;
+
+                            case 3: // modifico pelicula
+
+                                break;
+
+                            default:
+                                System.out.println("Inserte un número de tabla correcto");
+                                break;
+                        }
+
+                    } while (numTabla < 1 || numTabla > 3);
                     break;
                 default:
                     System.out.println("Número incorrecto, introduzca de nuevo el número de operación adecuado.");
@@ -358,43 +544,6 @@ public class App {
         } while (numOperacion < 1 || numOperacion > 4);
 
         teclado.close();
-
-        // Cine[] cine = suministrador.readCine("identificador = 1");
-
-        // for (Cine cine3 : cine) {
-        // System.out.println(cine3);
-        // }
-        // System.out.println(vista[0]);
-
-        // int numRow = suministrador.modificaCine(new String[][] { { "direccion",
-        // "'direccion'" } },
-        // "identificador", "7");
-
-        // System.out.println(numRow);
-
-        // vista = suministrador.readCine();
-
-        // System.out.println(vista[0]);
-        // // Cine[] cines = new Cine[vista.length];
-
-        // for (int i = 0; i < cines.length; i++) {
-
-        // }
-        // String[] elemento1 = new String[3];
-
-        // for (int i = 0; i < vista.length; i++) {
-        // int primero = vista[i].indexOf(MiCrud.SEPARADOR);
-        // elemento1[i] = vista[i].substring(0, primero);
-        // System.out.println(elemento1[i]);
-
-        // elemento1[i] = vista[i].substring(primero + 3,
-        // vista[i].indexOf(MiCrud.SEPARADOR, primero +3));
-        // System.out.println(elemento1[i]);
-
-        // elemento1[i] = vista[i].substring( vista[i].indexOf(MiCrud.SEPARADOR, primero
-        // +3) + 3);
-        // System.out.println(elemento1[i]);
-        // }
 
     }
 
@@ -409,7 +558,7 @@ public class App {
         System.out.println();
         System.out.println("A continuación inserte la operacion que quiere realizar:");
         System.out.println();
-        System.out.println("1. Insertar   2. Leer    3.Modificar   4.Eliminar");
+        System.out.println("1. Insertar   2. Leer    3.Eliminar   4.Modificar");
     }
 
 }

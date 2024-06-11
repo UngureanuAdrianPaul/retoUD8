@@ -215,21 +215,32 @@ public class Supplier {
 
     // BORRAR FILAS
 
-    public int deleteCine(String columna, String valor) {
+    public int deleteCine(String columna, String valor, String where) {
 
-        return miCrud.deleteRows("cines", (columna + " = " + valor));
+        if (where != null) {
+            return miCrud.deleteRows("cines", (columna + " = " + valor));
+        } else {
+            return miCrud.deleteRows("cines", null);
+        }
+    }
+
+    public int deleteSala(String columna, String valor, String where) {
+
+        if (where != null) {
+            return miCrud.deleteRows("salas", (columna + " = " + valor));
+        } else {
+            return miCrud.deleteRows("salas", null);
+        }
 
     }
 
-    public int deleteSala(String columna, String valor) {
+    public int deletePelicula(String columna, String valor, String where) {
 
-        return miCrud.deleteRows("sala", (columna + " = " + valor));
-
-    }
-
-    public int deletePelicula(String columna, String valor) {
-
-        return miCrud.deleteRows("peliculas", (columna + " = " + valor));
+        if (where != null) {
+            return miCrud.deleteRows("peliculas", (columna + " = " + valor));
+        } else {
+            return miCrud.deleteRows("peliculas", null);
+        }
 
     }
 
